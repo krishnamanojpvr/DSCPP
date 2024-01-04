@@ -24,6 +24,7 @@ public:
     int Length();
     void InsertAtBeginning(int data);
     void InsertAtEnd(int data);
+    bool DetectCycle();
 };
 
 SinglyLinkedList::SinglyLinkedList(int arr[], int size)
@@ -90,6 +91,19 @@ void SinglyLinkedList::Insert(int data, int pos)
         newnode->next = temp->next;
         temp->next = newnode;
     }
+};
+bool SinglyLinkedList::DetectCycle(){
+    Node *slow,*fast;
+    slow = fast = head;
+    while(fast && fast->next){
+        slow = slow->next;
+        fast = fast->next->next;
+        if(slow==fast){
+            return true;
+        }
+    }
+    return false;
+
 }
 
 int SinglyLinkedList::Length()
@@ -185,6 +199,7 @@ int main()
     l1.Insert(7,5);
     l1.Display();
     cout<<l1.Length()<<endl;
+    cout<<l1.DetectCycle()<<endl;
     // l1.InsertAtBeginning(0);
     // l1.InsertAtEnd(6);
     // l1.Display();
