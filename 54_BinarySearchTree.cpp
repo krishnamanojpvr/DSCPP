@@ -24,7 +24,7 @@ public:
     }
     Node *CreateRoot();
     Node *Insert(Node *curr, int val);
-    void Delete(Node *root);
+    Node *Delete(Node *root,int val);
     void InOrderDisplay(Node *root);
     void PreOrderDisplay(Node *root);
     void PostOrderDisplay(Node *root);
