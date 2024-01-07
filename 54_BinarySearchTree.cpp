@@ -24,7 +24,7 @@ public:
     }
     Node *CreateRoot();
     Node *Insert(Node *curr, int val);
-    Node *Delete(Node *root,int val);
+    Node *Delete(Node *root, int val);
     void InOrderDisplay(Node *root);
     void PreOrderDisplay(Node *root);
     void PostOrderDisplay(Node *root);
@@ -99,7 +99,7 @@ void BinarySearchTree::LevelOrderDisplay(Node *root)
     for (int i = 0; i < height; i++)
     {
         printLevel(root, i);
-        cout<<endl;
+        cout << endl;
     }
 }
 Node *BinarySearchTree::Insert(Node *curr, int val)
@@ -142,20 +142,81 @@ void BinarySearchTree::printLevel(Node *curr, int level)
         return;
     }
 }
+Node *BinarySearchTree::Delete(Node *curr, int val)
+{
+    // The base case
+    if (curr == NULL)
+    {
+        return curr;
+    }
+    // Left Child
+    if (val < curr->data)
+    {
+        curr->left = Delete(curr->left, val);
+        return curr;
+    }
+    // Right Child
+    else if (val > curr->data)
+    {
+        curr->right = Delete(curr->right, val);
+        return curr;
+    }
+
+    // Now, we've reached to the node which we want to delete.
+    // Our task is to check whether it has 0 or 1 or 2 children.
+
+    // If it has 0 or 1 child :
+
+    if (curr->left == NULL)
+    {
+        Node *temp = curr->right;
+        delete curr;
+        return temp;
+    }
+    else if (curr->right == NULL)
+    {
+        Node *temp = curr->left;
+        delete curr;
+        return temp;
+    }
+
+    // Inorder Predecessor : Largest element in Left Subtree of the Current Node
+    // Inorder Successor   : Smallest element in Right Subtree of the current Node
+    // Or else if the node has 2 children :
+    // Find its Inorder Successor
+    // Copy the data of inorder successor and delete it
+    // Replace the curr node's data with Inorder successor's data (that you've copied earlier)
+    else
+    {
+        Node *tempParent = curr;
+        Node *temp = curr->right;
+        while (temp->left != NULL)
+        {
+            tempParent = temp;
+            temp = temp->left;
+        }
+        int data = temp->data;
+        delete temp;
+        tempParent->left = NULL;
+        curr->data = data;
+        return curr;
+    }
+}
 int main()
 {
     BinarySearchTree bst;
     bst.root = bst.CreateRoot();
     int insertData;
-    cout<<"Enter the data you want to insert (-1 to not insert) : ";
-    cin>>insertData;
-    while(insertData!=-1){
+    cout << "Enter the data you want to insert (-1 to not insert) : ";
+    cin >> insertData;
+    while (insertData != -1)
+    {
         bst.Insert(bst.root, insertData);
-        cout<<"Enter the data you want to insert (-1 to not insert) : ";
-        cin>>insertData;
+        cout << "Enter the data you want to insert (-1 to cancel) : ";
+        cin >> insertData;
     }
 
-    cout<<"Height : "<<bst.Height(bst.root)<<endl;
+    cout << "Height : " << bst.Height(bst.root) << endl;
 
     cout << "PreOrderDisplay: ";
     bst.PreOrderDisplay(bst.root);
@@ -169,8 +230,25 @@ int main()
     bst.InOrderDisplay(bst.root);
     cout << endl;
 
-    cout << "LevelOrderDisplay: "<<endl;
+    cout << "LevelOrderDisplay: " << endl;
     bst.LevelOrderDisplay(bst.root);
     cout << endl;
+
+    int deleteData;
+    cout << "Enter the data you want to delete (-1 to cancel) : ";
+    cin >> deleteData;
+    while (deleteData != -1)
+    {
+        bst.Delete(bst.root, deleteData);
+        cout << endl;
+
+        cout << "LevelOrderDisplay: " << endl;
+        bst.LevelOrderDisplay(bst.root);
+        cout << endl;
+
+        cout << "Enter the data you want to delete (-1 to cancel) : ";
+        cin >> deleteData;
+    }
+
     return 0;
 }
