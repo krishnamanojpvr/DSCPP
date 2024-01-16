@@ -11,4 +11,4 @@
 10.Max-Heap using Array.\
 11.Graphs (Adjacency Matrix & List, DFS and BFS).\
 12.Linear and Binary Search.\
-13.Quick, Merge and Heap(Max-Heap) Sorts.\
+13.Quick, Merge and Heap(Max-Heap) Sorts
