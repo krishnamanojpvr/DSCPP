@@ -30,37 +30,36 @@ void maxHeap(int arr[], int n)
         max_Heapify(arr, n, i);
     }
 }
-void insert(int arr[], int *n, int val)
+void insert(int arr[], int &n, int val)
 {
-    *n = *n + 1;
-    arr[*n - 1] = val;
-    maxHeap(arr, *n);
+    n = n + 1;
+    arr[n - 1] = val;
+    maxHeap(arr, n);
 }
-void deleteRoot(int arr[], int *n)
+void deleteRoot(int arr[], int &n)
 {
-    arr[0] = arr[*n - 1];
-    *n = *n - 1;
-    max_Heapify(arr, *n, 0);
+    arr[0] = arr[n - 1];
+    n = n - 1;
+    max_Heapify(arr, n, 0);
 }
 int peek(int arr[])
 {
     return arr[0];
 }
-int extractMaximum(int arr[], int *n)
+int extractMaximum(int arr[], int &n)
 {
     int max = arr[0];
-    int temp = arr[0];
-    arr[0] = arr[*n-1];
-    arr[*n-1] = temp;
-    *n = *n-1;
-    for (int i = (*n / 2) - 1; i >= 0; i--)
+    std::swap(arr[0], arr[n - 1]);
+    n = n - 1;
+    for (int i = (n / 2) - 1; i >= 0; i--)
     {
-        max_Heapify(arr, *n, i);
+        max_Heapify(arr, n, i);
     }
+    return max;
 }
-void printArray(int arr[], int *n)
+void printArray(int arr[], int &n)
 {
-    for (int i = 0; i < *n; i++)
+    for (int i = 0; i < n; i++)
     {
         cout << arr[i] << " ";
     }
@@ -70,14 +69,14 @@ int main()
 {
     int arr[SIZE] = {10, 7, 8, 5, 6};
     int n = 5;
-    printArray(arr, &n);
-    insert(arr, &n, 11);
-    printArray(arr, &n);
-    insert(arr, &n, 20);
-    printArray(arr, &n);
-    deleteRoot(arr, &n);
-    printArray(arr, &n);
-    cout<<extractMaximum(arr,&n)<<endl;
-    printArray(arr,&n);
+    printArray(arr, n);
+    insert(arr, n, 11);
+    printArray(arr, n);
+    insert(arr, n, 20);
+    printArray(arr, n);
+    deleteRoot(arr, n);
+    printArray(arr, n);
+    cout << extractMaximum(arr, n) << endl;
+    printArray(arr, n);
     return 0;
 }

@@ -9,6 +9,7 @@
 8.Binary Tree and Binary Search Tree\
 9.Priority Queue using LinkedList\
 10.Max-Heap using Array\
-11.Graphs (Adjacency Matrix & List, DFS and BFS)\
-12.Linear and Binary Search\
-13.Quick, Merge and Heap(Max-Heap) Sorts
+11.ToDoList(Priority Queue) using MinHeap\
+12.Graphs (Adjacency Matrix & List, DFS and BFS) (Pending)\
+13.Linear and Binary Search\
+14.Quick, Merge and Heap Sort
