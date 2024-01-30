@@ -1,7 +1,6 @@
 #include <iostream>
 using namespace std;
 int vertarr[20][20];
-int count = 0;
 void displayMatrix(int v)
 {
     int i, j;
@@ -23,6 +22,5 @@ int main()
 {
     int v = 2;
     add_edge(0, 1);
-    add_edge(1, 0);
     displayMatrix(v);
 }
