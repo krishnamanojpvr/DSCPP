@@ -9,6 +9,7 @@ void fun1(int n){
     for(i=0;i<n;i++){
         cout << '*';
     }
+    cout<<endl;
 }
 
 int main()
