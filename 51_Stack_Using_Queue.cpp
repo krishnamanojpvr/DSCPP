@@ -28,7 +28,7 @@ void display()
         return;
     }
     int size = q1.size();
-    while (size >= 0)
+    while (size > 0)
     {
         int i=0;
         while (i < q1.size())
