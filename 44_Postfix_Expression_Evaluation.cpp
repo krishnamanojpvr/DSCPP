@@ -21,16 +21,16 @@ void eval(string s)
 			switch (c)
 			{
 			case '+':
-				st.push(temp1 + temp2);
+				st.push(temp2 + temp1);
 				break;
 			case '-':
-				st.push(temp1 - temp2);
+				st.push(temp2 - temp1);
 				break;
 			case '*':
-				st.push(temp1 * temp2);
+				st.push(temp2 * temp1);
 				break;
 			case '/':
-				st.push(temp1 / temp2);
+				st.push(temp2 / temp1);
 				break;
 
 			default:
