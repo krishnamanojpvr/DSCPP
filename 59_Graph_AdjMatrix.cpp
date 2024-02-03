@@ -13,14 +13,17 @@ void displayMatrix(int v)
         cout << endl;
     }
 }
-void add_edge(int u, int v)
+void add_edge(int u, int v, bool directed)
 {
     vertarr[u][v] = 1;
-    vertarr[v][u] = 1;
+    if (!directed)
+    {
+        vertarr[v][u] = 1;
+    }
 }
 int main()
 {
     int v = 2;
-    add_edge(0, 1);
+    add_edge(0, 1, 0);
     displayMatrix(v);
 }
