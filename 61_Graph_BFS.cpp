@@ -24,10 +24,6 @@ public:
             {
                 vertices.push_back(u);
             }
-            if (vertex_check(u))
-            {
-                vertices.push_back(u);
-            }
         }
         else
         {
@@ -73,7 +69,7 @@ public:
         }
     }
 
-    void display()
+    void displayAdjList()
     {
         for (auto i : adjList)
         {
@@ -104,6 +100,6 @@ int main()
     { // this loop is used in case if graph is disconnected.
         g.BFS(g.vertices[i], visited);
     }
-    // g.display();
+    // g.displayAdjList();
     return 0;
 }
