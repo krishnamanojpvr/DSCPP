@@ -20,7 +20,7 @@ void subS(string s, string curr, int i){
         cout << curr << endl;
         return;
     }
-    subS(s,curr + s[i],i+1);
+    subS(s,curr + s[i],i+1);    
     subS(s,curr,i+1);
 }
 
