@@ -11,9 +11,57 @@ public:
 class SinglyLinkedList
 {
 private:
-    Node *head;
+    Node *merge(Node *a, Node *b)
+    {
+        // base case
+        if (a == NULL)
+            return b;
+        if (b == NULL)
+            return a;
+
+        // recursive case
+        // take a head pointer
+        Node *c;
+
+        if (a->data < b->data)
+        {
+            c = a;
+            c->next = merge(a->next, b);
+        }
+        else
+        {
+            c = b;
+            c->next = merge(a, b->next);
+        }
+
+        return c;
+    }
+    Node *mid_point(Node *head)
+    {
+        // base case
+        if (head == NULL || head->next == NULL)
+            return head;
+
+        // recursive case
+        Node *fast = head;
+        Node *slow = head;
+
+        while (fast != NULL && fast->next != NULL)
+        {
+            fast = fast->next;
+
+            if (fast->next == NULL)
+                break;
+
+            fast = fast->next;
+            slow = slow->next;
+        }
+
+        return slow;
+    }
 
 public:
+    Node *head;
     SinglyLinkedList();
     SinglyLinkedList(int arr[], int size);
     // ~SinglyLinkedList();
@@ -25,15 +73,42 @@ public:
     void InsertAtBeginning(int data);
     void InsertAtEnd(int data);
     bool DetectCycle();
+    Node *mergeSort(Node *head);
 };
+
+Node *SinglyLinkedList::mergeSort(Node *head)
+{
+    // base case
+    if (head == NULL || head->next == NULL)
+        return head;
+
+    // recursive case
+    // Step 1: divide the linked list into
+    // two equal linked lists
+    Node *mid = mid_point(head);
+    Node *a = head;
+    Node *b = mid->next;
+
+    mid->next = NULL;
+
+    // Step 2: recursively sort the smaller
+    // linked lists
+    a = mergeSort(a);
+    b = mergeSort(b);
+
+    // Step 3: merge the sorted linked lists
+    Node *c = merge(a, b);
+
+    return c;
+}
 
 SinglyLinkedList::SinglyLinkedList(int arr[], int size)
 {
 
-    Node *temp, *last ,*newnode;
+    Node *temp, *last, *newnode;
     newnode = new Node;
     newnode->data = arr[0];
-    head=newnode;
+    head = newnode;
     last = head;
     for (int i = 1; i < size; i++)
     {
@@ -48,14 +123,13 @@ void SinglyLinkedList::Display()
 {
     Node *temp;
     temp = head;
-    
+
     while (temp->next != NULL)
     {
         cout << temp->data << "->";
         temp = temp->next;
-    }  
-    cout<<temp->data << endl;
-
+    }
+    cout << temp->data << endl;
 }
 
 void SinglyLinkedList::Insert(int data, int pos)
@@ -63,7 +137,7 @@ void SinglyLinkedList::Insert(int data, int pos)
     Node *temp;
     Node *newnode = new Node;
     newnode->data = data;
-    
+
     if (pos < 1 || pos > Length())
     {
         return;
@@ -87,23 +161,24 @@ void SinglyLinkedList::Insert(int data, int pos)
             temp = temp->next;
         }
 
-        
         newnode->next = temp->next;
         temp->next = newnode;
     }
 };
-bool SinglyLinkedList::DetectCycle(){
-    Node *slow,*fast;
+bool SinglyLinkedList::DetectCycle()
+{
+    Node *slow, *fast;
     slow = fast = head;
-    while(fast && fast->next){
+    while (fast && fast->next)
+    {
         slow = slow->next;
         fast = fast->next->next;
-        if(slow==fast){
+        if (slow == fast)
+        {
             return true;
         }
     }
     return false;
-
 }
 
 int SinglyLinkedList::Length()
@@ -124,7 +199,7 @@ int SinglyLinkedList::Length()
 
 void SinglyLinkedList::InsertAtBeginning(int data)
 {
-    Node *newnode =new Node;
+    Node *newnode = new Node;
     newnode->data = data;
     if (head == NULL)
     {
@@ -139,7 +214,7 @@ void SinglyLinkedList::InsertAtEnd(int data)
 {
     Node *newnode = new Node;
     newnode->data = data;
-    
+
     if (head == NULL)
     {
         head = newnode;
@@ -158,7 +233,8 @@ void SinglyLinkedList::Reverse()
     Node *temp1 = head;
     Node *temp2 = NULL;
     Node *temp3 = NULL;
-    while(temp1){
+    while (temp1)
+    {
         temp3 = temp2;
         temp2 = temp1;
         temp1 = temp1->next;
@@ -167,7 +243,8 @@ void SinglyLinkedList::Reverse()
     head = temp2;
 }
 
-void SinglyLinkedList::Delete(int pos){
+void SinglyLinkedList::Delete(int pos)
+{
     if (pos < 1 || pos > Length())
     {
         return;
@@ -185,21 +262,22 @@ void SinglyLinkedList::Delete(int pos){
         temp->next = temp->next->next;
         delete del;
     }
-
 }
 
 int main()
 {
-    int arr[]={1,2,3,4,5};
-    int size=5;
-    SinglyLinkedList l1(arr,size);
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = 5;
+    SinglyLinkedList l1(arr, size);
     l1.Display();
-    cout<<l1.Length()<<endl;
+    cout << l1.Length() << endl;
 
-    l1.Insert(7,5);
+    l1.Insert(7, 5);
     l1.Display();
-    cout<<l1.Length()<<endl;
-    cout<<l1.DetectCycle()<<endl;
+    cout << l1.Length() << endl;
+    cout << l1.DetectCycle() << endl;
+    l1.mergeSort(l1.head);
+    l1.Display();
     // l1.InsertAtBeginning(0);
     // l1.InsertAtEnd(6);
     // l1.Display();
