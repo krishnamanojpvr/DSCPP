@@ -13,4 +13,5 @@
 12.Prority Queue using STL\
 13.Graphs (Adjacency Matrix & List, BFS and DFS)\
 14.Linear and Binary Search\
-15.Quick, Merge and Heap Sort
+15.Quick, Merge, Heap , Count, Radix Sorts\
+16.LinearProbing Basic
