@@ -51,10 +51,10 @@ int extractMaximum(int arr[], int &n)
     int max = arr[0];
     std::swap(arr[0], arr[n - 1]);
     n = n - 1;
-    for (int i = (n / 2) - 1; i >= 0; i--)
-    {
-        max_Heapify(arr, n, i);
-    }
+    // for (int i = (n / 2) - 1; i >= 0; i--)
+    // {
+        max_Heapify(arr, n, 0);
+    // }
     return max;
 }
 void printArray(int arr[], int &n)
@@ -77,6 +77,8 @@ int main()
     deleteRoot(arr, n);
     printArray(arr, n);
     cout << extractMaximum(arr, n) << endl;
+    printArray(arr, n);
+    insert(arr, n, 11);
     printArray(arr, n);
     return 0;
 }
